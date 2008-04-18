@@ -1,31 +1,10 @@
 package XMLRPC::Lite::UpdatePing;
 
-use 5.008008;
+use 5.008000;
 use strict;
 use warnings;
 
-require Exporter;
-
-our @ISA = qw(Exporter);
-
-# Items to export into callers namespace by default. Note: do not export
-# names by default without a very good reason. Use EXPORT_OK instead.
-# Do not simply export all your public functions/methods/constants.
-
-# This allows declaration	use XMLRPC::Lite::UpdatePing ':all';
-# If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
-# will save memory.
-our %EXPORT_TAGS = ( 'all' => [ qw(
-	
-) ] );
-
-our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
-
-our @EXPORT = qw(
-	
-);
-
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use Encode;
 use XMLRPC::Lite;
@@ -48,6 +27,12 @@ sub add_ping_server {
     my $self = shift;
     my $new_ping_server = shift;
     push @{$self->{ping_severs}}, $new_ping_server;
+    return $self;
+}
+
+sub setup_ping_servers {
+    my $self = shift;
+    $self->{ping_servers} = shift;
     return $self;
 }
 
@@ -82,7 +67,7 @@ sub _send_ping {
     }
 
     my $result = XMLRPC::Lite->proxy($rpc_uri)
-                     ->call( 'rssfeed.updatePing', $site_name, $feed_uri, )
+                     ->call( 'weblogUpdates.ping', $site_name, $feed_uri, )
                      ->result ;
     return $@ if $@;
     return (defined $result) ? $result : { 'flerror' => 'none', 'message' => 'none' };
@@ -108,6 +93,7 @@ sub _as_string {
 }
 
 1;
+
 __END__
 
 =head1 NAME
@@ -121,12 +107,37 @@ XMLRPC::Lite::UpdatePing - send update-ping easily with XMLRPC::Lite
   my $your_rssfeeds = ( 'example1' => 'http://example.com/rss.xml',
                         'example2' => 'http://yet.another.com/rss2', );
 
-  my $result = XMLRPC::Lite::UpdatePing->ping($your_rssfeeds);
-
+  my $client = XMLRPC::Lite::UpdatePing->new;
+  my $result = $client->ping($your_rssfeeds);
  
 =head1 DESCRIPTION
 
 XMLRPC::Lite::UpdatePing is a Perl modules that you can send update-ping to ping servers so easily.
+
+You can send update ping to the following ping servers by default.
+
+  http://blogsearch.google.com/ping/RPC2
+  http://www.blogpeople.net/servlet/weblogUpdates
+  http://rpc.technorati.com/rpc/ping
+
+If you want to send to others than those above, add ping server or set new list of ping servers.
+
+=item add_ping_server
+
+  my $client = XMLRPC::Lite::UpdatePing->new;
+  my $result = $client->add_ping_server('http://api.my.yahoo.com/RPC2')
+                      ->ping($your_rssfeeds);
+ 
+=item setup_ping_servers
+
+  my $ping_servers = [ 'http://api.my.yahoo.com/RPC2',
+                       'http://rpc.reader.livedoor.com/ping',
+                       'http://r.hatena.ne.jp/rpc',  ];
+
+  my $client = XMLRPC::Lite::UpdatePing->new;
+  my $result = $client->setup_ping_servers($ping_servers)
+                      ->ping($your_rssfeeds);
+
 
 =head2 DEPENDENCIES
 

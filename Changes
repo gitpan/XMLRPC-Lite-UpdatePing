@@ -4,3 +4,6 @@ Revision history for Perl extension XMLRPC::Lite::UpdatePing.
 	- original version; created by h2xs 1.23 with options
 		-AX -n XMLRPC::Lite::UpdatePing
 
+0.02  Fri Apr 18 10:08:05 2008
+	- improve pod, add setup_ping_servers()
+
