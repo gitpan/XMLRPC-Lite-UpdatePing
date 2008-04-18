@@ -2,9 +2,8 @@ package XMLRPC::Lite::UpdatePing;
 
 use 5.008000;
 use strict;
-use warnings;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use Encode;
 use XMLRPC::Lite;
@@ -26,7 +25,7 @@ sub ping_servers {
 sub add_ping_server {
     my $self = shift;
     my $new_ping_server = shift;
-    push @{$self->{ping_severs}}, $new_ping_server;
+    push @{$self->{ping_servers}}, $new_ping_server;
     return $self;
 }
 
@@ -105,7 +104,7 @@ XMLRPC::Lite::UpdatePing - send update-ping easily with XMLRPC::Lite
   use XMLRPC::Lite::UpdatePing;
 
   my $your_rssfeeds = ( 'example1' => 'http://example.com/rss.xml',
-                        'example2' => 'http://yet.another.com/rss2', );
+                        'example2' => 'http://example.com/rss2', );
 
   my $client = XMLRPC::Lite::UpdatePing->new;
   my $result = $client->ping($your_rssfeeds);

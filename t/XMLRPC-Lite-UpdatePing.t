@@ -12,9 +12,13 @@ my $res;
 
 ok $res = $client->add_ping_server('http://api.my.yahoo.com/RPC2'), '$obj->add_ping_server($uri);';
 is $res, $client, 'returns $self';
+my $count = @{$client->ping_servers};
+is $count, 4, 'result';
 
 ok $res = $client->setup_ping_servers($ping_servers), '$obj->setup_ping_servers($uri_array_ref);';
 is $res, $client, 'returns $self';
+$count = @{$client->ping_servers};
+is $count, 2, 'result';
 
 my $feed = { 'the radius of 5 meters' => 'http://seratch.blogspot.com/feeds/posts/default' };
 

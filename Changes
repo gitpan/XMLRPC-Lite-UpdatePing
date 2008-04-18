@@ -7,3 +7,6 @@ Revision history for Perl extension XMLRPC::Lite::UpdatePing.
 0.02  Fri Apr 18 10:08:05 2008
 	- improve pod, add setup_ping_servers()
 
+0.03  Sat Apr 19 00:10:37 2008
+	- bug fix $obj->add_ping_server($str);
+
