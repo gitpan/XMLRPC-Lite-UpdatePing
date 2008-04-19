@@ -13,3 +13,6 @@ Revision history for Perl extension XMLRPC::Lite::UpdatePing.
 0.04  Sat Apr 19 01:14:21 2008
 	- add Makefile.PL PREREQ_PM
 
+0.05  Sun Apr 20 05:01:01 2008
+	- edit pod
+

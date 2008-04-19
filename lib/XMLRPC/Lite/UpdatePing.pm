@@ -1,8 +1,8 @@
 package XMLRPC::Lite::UpdatePing;
 
 use strict;
-
-our $VERSION = '0.04';
+use vars qw($VERSION);
+our $VERSION = '0.05';
 
 use Encode;
 use XMLRPC::Lite;
@@ -105,8 +105,9 @@ XMLRPC::Lite::UpdatePing - send update ping easily with XMLRPC::Lite
   my $your_rssfeeds = ( 'example1' => 'http://example.com/rss.xml',
                         'example2' => 'http://example.com/rss2', );
 
-  my $client = XMLRPC::Lite::UpdatePing->new;
-  my $result = $client->ping($your_rssfeeds);
+  my $client = XMLRPC::Lite::UpdatePing->new();
+  my $result = $client->add_ping_server('http://rpc.reader.livedoor.com/ping')
+                      ->ping($your_rssfeeds);
  
 =head1 DESCRIPTION
 
@@ -118,24 +119,37 @@ You can send update ping to the following ping servers by default.
   http://www.blogpeople.net/servlet/weblogUpdates
   http://rpc.technorati.com/rpc/ping
 
-If you want to send to others than those above, add ping server or set new list of ping servers.
+=head1 METHODS
 
-=item add_ping_server
+=over 4
 
-  my $client = XMLRPC::Lite::UpdatePing->new;
-  my $result = $client->add_ping_server('http://api.my.yahoo.com/RPC2')
-                      ->ping($your_rssfeeds);
+=item new()
+
+  my $client = XMLRPC::Lite::UpdatePing->new();
+
+Create and return a new XMLRPC::Lite::UpdatePing object.
+
+=item add_ping_server(I<$url>)
+
+  $client->add_ping_server('http://api.my.yahoo.com/RPC2');
  
-=item setup_ping_servers
+Add a new ping server to the list of target ping servers and return self object.
+
+=item setup_ping_servers(I<\@url>)
 
   my $ping_servers = [ 'http://api.my.yahoo.com/RPC2',
                        'http://rpc.reader.livedoor.com/ping',
                        'http://r.hatena.ne.jp/rpc',  ];
 
-  my $client = XMLRPC::Lite::UpdatePing->new;
-  my $result = $client->setup_ping_servers($ping_servers)
-                      ->ping($your_rssfeeds);
+  $client->setup_ping_servers($ping_servers);
 
+Set a new list of ping servers instead of the default list and return self object.
+
+=item ping(I<\%feed_url>)
+
+  my $result = $client->ping($your_rssfeeds);
+
+Send update ping requests to the ping servers and return a result string.
 
 =head1 DEPENDENCIES
 
