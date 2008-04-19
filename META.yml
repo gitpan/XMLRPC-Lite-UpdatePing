@@ -1,13 +1,14 @@
 --- #YAML:1.0
 name:                XMLRPC-Lite-UpdatePing
-version:             0.03
-abstract:            send update-ping easily with XMLRPC::Lite
+version:             0.04
+abstract:            send update ping easily with XMLRPC::Lite
 license:             ~
 author:              
-    - A. U. Thor <webmaster@localdomain>
+    - Kazuhiro Sera <webmaster@seratch.ath.cx>
 generated_by:        ExtUtils::MakeMaker version 6.44
 distribution_type:   module
 requires:     
+    XMLRPC::Lite:                  0.60
 meta-spec:
     url:     http://module-build.sourceforge.net/META-spec-v1.3.html
     version: 1.3

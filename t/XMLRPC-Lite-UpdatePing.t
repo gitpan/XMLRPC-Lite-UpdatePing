@@ -21,7 +21,6 @@ $count = @{$client->ping_servers};
 is $count, 2, 'result';
 
 my $feed = { 'the radius of 5 meters' => 'http://seratch.blogspot.com/feeds/posts/default' };
-
 ok $client->ping($feed), '$obj->ping($feed_hash_ref);';
 
-
+__END__

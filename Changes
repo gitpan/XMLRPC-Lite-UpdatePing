@@ -10,3 +10,6 @@ Revision history for Perl extension XMLRPC::Lite::UpdatePing.
 0.03  Sat Apr 19 00:10:37 2008
 	- bug fix $obj->add_ping_server($str);
 
+0.04  Sat Apr 19 01:14:21 2008
+	- add Makefile.PL PREREQ_PM
+

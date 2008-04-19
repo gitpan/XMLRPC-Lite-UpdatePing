@@ -1,9 +1,8 @@
 package XMLRPC::Lite::UpdatePing;
 
-use 5.008000;
 use strict;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 use Encode;
 use XMLRPC::Lite;
@@ -97,7 +96,7 @@ __END__
 
 =head1 NAME
 
-XMLRPC::Lite::UpdatePing - send update-ping easily with XMLRPC::Lite
+XMLRPC::Lite::UpdatePing - send update ping easily with XMLRPC::Lite
 
 =head1 SYNOPSIS
 
@@ -138,7 +137,7 @@ If you want to send to others than those above, add ping server or set new list 
                       ->ping($your_rssfeeds);
 
 
-=head2 DEPENDENCIES
+=head1 DEPENDENCIES
 
 XMLRPC::Lite
 
