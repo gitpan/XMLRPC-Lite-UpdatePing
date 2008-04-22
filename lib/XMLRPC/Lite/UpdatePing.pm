@@ -2,7 +2,7 @@ package XMLRPC::Lite::UpdatePing;
 
 use strict;
 use vars qw($VERSION);
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 use Encode;
 use XMLRPC::Lite;
@@ -64,10 +64,13 @@ sub _send_ping {
                  uri     => $feed_uri,   };
     }
 
-    my $result = XMLRPC::Lite->proxy($rpc_uri)
-                     ->call( 'weblogUpdates.ping', $site_name, $feed_uri, )
-                     ->result ;
+    my $result = eval { 
+        XMLRPC::Lite->proxy($rpc_uri)
+            ->call( 'weblogUpdates.ping', $site_name, $feed_uri, )
+            ->result ;
+    };
     return $@ if $@;
+
     return (defined $result) ? $result : { 'flerror' => 'none', 'message' => 'none' };
 }
 
